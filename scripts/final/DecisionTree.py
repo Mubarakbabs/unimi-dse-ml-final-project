@@ -1,5 +1,3 @@
-#stuck because I couldn't find a way to perform np.unique separately for categorical vs numerical
-
 import numpy as np
 import pandas as pd
 from collections import Counter

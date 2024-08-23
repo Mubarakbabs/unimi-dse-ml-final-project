@@ -1,7 +1,7 @@
 #adding other utility functions that aren't necessarily tied to the decision tree
 import numpy as np
 import pandas as pd
-from scripts.MyDecisionTree import DecisionTree
+from scripts.final.DecisionTree import DecisionTree
 
 def train_test_split(X,y,test_size=0.2, random_state=None):
     np.random.seed(random_state)
