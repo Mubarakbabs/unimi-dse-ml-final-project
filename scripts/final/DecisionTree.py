@@ -15,7 +15,7 @@ class Node:
         return self.value is not None
 
 class DecisionTree:
-    def __init__(self, min_samples_split=2, max_depth=100, n_features=None, split_using="entropy"):
+    def __init__(self, min_samples_split=2, max_depth=10, n_features=None, split_using="entropy"):
         if split_using not in ('entropy', 'gini', 'train_error'):
             raise ValueError(f"split_using argument must be one of ('entropy', 'gini', 'train_error')")
         self.min_samples_split = min_samples_split
@@ -25,8 +25,8 @@ class DecisionTree:
         self.split_using = split_using
 
     def fit(self, X, y):
-        X = np.array(X) if not isinstance(X, np.ndarray) else X
-        y = np.array(X) if not isinstance(y, np.ndarray) else y       
+        X = np.array(X)
+        y = np.array(y)     
         self.leaves = []
         self.n_features = X.shape[1] if not self.n_features else min(X.shape[1], self.n_features)
         self.root = self._grow_tree(X, y)
@@ -126,6 +126,7 @@ class DecisionTree:
 
     def _split(self, X_column, split_thresh):
         try:
+            split_thresh = float(split_thresh)
             X_column = X_column.astype(float)
             left_idxs = np.argwhere(X_column <= split_thresh).flatten()
             right_idxs = np.argwhere(X_column > split_thresh).flatten()

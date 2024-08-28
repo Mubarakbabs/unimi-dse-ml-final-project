@@ -4,16 +4,18 @@ import pandas as pd
 from scripts.final.DecisionTree import DecisionTree
 
 def train_test_split(X,y,test_size=0.2, random_state=None):
+    X = np.array(X)
+    y = np.array(y)
     np.random.seed(random_state)
     test_indices = np.random.choice(X.shape[0], size=round(test_size*X.shape[0]), replace=False)
-    X_test = X.iloc[test_indices].to_numpy()
-    y_test = y.iloc[test_indices].to_numpy()
+    X_test = X[test_indices]
+    y_test = y[test_indices]
     y_test = y_test.reshape((len(y_test)),).astype(int)
 
     all_indices = np.arange(X.shape[0])
     train_indices = np.setdiff1d(all_indices, test_indices)
-    X_train = X.iloc[train_indices].to_numpy()
-    y_train = y.iloc[train_indices].to_numpy()
+    X_train = X[train_indices]
+    y_train = y[train_indices]
     y_train = y_train.reshape((len(y_train)),).astype(int)
 
     return X_train, X_test, y_train, y_test
@@ -74,19 +76,23 @@ def zero_one_loss(y_train, y_pred):
 
 
     #hyperparameter tuning to maximize the threshold on at least one of them
-def tune(X, y, tune_on, limit):
-    best_training_error = 1
-    for i in range(1,limit):
-        params = {tune_on: i}
+def tune(X, y, tune_on, split_using, start, stop):
+    best_error = 1
+    X_train, X_validate, y_train, y_validate = train_test_split(X,y, test_size=0.2)
+    for i in range(start, stop):
+        params = {tune_on: i, 'split_using': split_using }
         tree = DecisionTree(**params)
-        tree.fit(X, y)
-        y_pred = tree.predict(X)
-        training_error = zero_one_loss(y, y_pred)
-        if training_error == best_training_error:
-            break
-        if training_error < best_training_error:
+        tree.fit(X_train, y_train)
+        y_pred = tree.predict(X_validate)
+        validation_error = zero_one_loss(y_validate, y_pred)
+        print(f"tree depth: {tree.max_depth}, validation error: {validation_error}")
+        if validation_error < best_error:
+            improvement = validation_error - best_error
             #for some reason it prints the next tree after the
-            best_training_error = training_error
+            best_error = validation_error
             best_tree = tree
-    print(f"training error: {best_training_error}")
+            best_depth = i
+            # if improvement < 0.001 and best_error != 1:
+            #     break
+    print(f"best depth: {best_depth} validation error: {best_error}")
     return best_tree
