@@ -40,7 +40,8 @@ def accuracy(y_actual, y_predicted):
     total_predictions = len(y_predicted)
     accuracy = correct_predictions/total_predictions
 
-    return f"Accuracy: {accuracy}"
+    print(f"Accuracy: {round(accuracy*100,2)}%")
+    return accuracy
 
 def recall(y_actual, y_predicted):
     if len(y_actual) != len(y_predicted):
@@ -52,7 +53,8 @@ def recall(y_actual, y_predicted):
     true_positives = np.sum(actual_positives & predicted_positives)
     false_negatives = np.sum(actual_positives & predicted_negatives)
     recall = true_positives/(true_positives+false_negatives)
-    return f"Recall: {recall}"
+    print(f"Recall: {round(recall*100,2)}%")
+    return recall
 
 def precision(y_actual, y_predicted):
     if len(y_actual) != len(y_predicted):
@@ -64,7 +66,8 @@ def precision(y_actual, y_predicted):
     true_positives = np.sum(actual_positives & predicted_positives)
     false_positives = np.sum(actual_negatives & predicted_positives)
     precision = true_positives/(true_positives+false_positives)
-    return f"Precision: {precision}"
+    print(f"Precision: {round(precision*100, 2)}%")
+    return precision
 
     #compute the training error according to the 0-1 loss. 
 
