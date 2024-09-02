@@ -2,6 +2,7 @@
 import numpy as np
 import pandas as pd
 from scripts.final.DecisionTree import DecisionTree
+from joblib import Parallel, delayed
 
 def train_test_split(X,y,test_size=0.2, random_state=None):
     X = np.array(X)
@@ -79,23 +80,25 @@ def zero_one_loss(y_train, y_pred):
 
 
     #hyperparameter tuning to maximize the threshold on at least one of them
-def tune(X, y, tune_on, split_using, start, stop):
-    best_error = 1
-    X_train, X_validate, y_train, y_validate = train_test_split(X,y, test_size=0.2)
-    for i in range(start, stop):
-        params = {tune_on: i, 'split_using': split_using }
-        tree = DecisionTree(**params)
-        tree.fit(X_train, y_train)
-        y_pred = tree.predict(X_validate)
-        validation_error = zero_one_loss(y_validate, y_pred)
-        print(f"tree depth: {tree.max_depth}, validation error: {validation_error}")
-        if validation_error < best_error:
-            improvement = validation_error - best_error
-            #for some reason it prints the next tree after the
-            best_error = validation_error
-            best_tree = tree
-            best_depth = i
-            # if improvement < 0.001 and best_error != 1:
-            #     break
-    print(f"best depth: {best_depth} validation error: {best_error}")
-    return best_tree
+
+def evaluate_model(X_train, y_train, X_validate, y_validate, tune_on, split_using, i):
+    params = {tune_on: i, 'split_using': split_using}
+    tree = DecisionTree(**params)
+    tree.fit(X_train, y_train)
+    y_pred = tree.predict(X_validate)
+    validation_error = zero_one_loss(y_validate, y_pred)
+    print(f"tree depth: {tree.max_depth}, validation error: {validation_error}")
+    return validation_error, i
+
+def tune(X, y, tune_on, split_using, start, stop, n_jobs=-1):
+    X_train, X_validate, y_train, y_validate = train_test_split(X, y, test_size=0.2)
+    
+    results = Parallel(n_jobs=n_jobs)(
+        delayed(evaluate_model)(X_train, y_train, X_validate, y_validate, tune_on, split_using, i)
+        for i in range(start, stop)
+    )
+    
+    best_error, best_depth = min(results, key=lambda x: x[0])
+    
+    print(f"best depth: {best_depth} split criterion: {split_using} validation error: {round(best_error * 100, 2)} %")
+    return [(f"tree_depth: {i}", f"validation error:{error}") for error, i in results]

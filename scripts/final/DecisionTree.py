@@ -16,8 +16,8 @@ class Node:
 
 class DecisionTree:
     def __init__(self, min_samples_split=2, max_depth=10, n_features=None, split_using="entropy"):
-        if split_using not in ('entropy', 'gini', 'train_error'):
-            raise ValueError(f"split_using argument must be one of ('entropy', 'gini', 'train_error')")
+        if split_using not in ('entropy', 'gini', 'class_error'):
+            raise ValueError(f"split_using argument must be one of ('entropy', 'gini', 'class_error')")
         self.min_samples_split = min_samples_split
         self.max_depth = max_depth
         self.n_features = n_features
@@ -109,8 +109,8 @@ class DecisionTree:
             information_gain = parent_gini - child_gini
             return information_gain
 
-        elif self.split_using == 'train_error':
-            parent_error = self._train_error(y)
+        elif self.split_using == 'class_error':
+            parent_error = self._class_error(y)
             left_idxs, right_idxs = self._split(X_column, threshold)
 
             if len(left_idxs) == 0 or len(right_idxs) == 0:
@@ -118,7 +118,7 @@ class DecisionTree:
 
             n = len(y)
             n_l, n_r = len(left_idxs), len(right_idxs)
-            error_l, error_r = self._train_error(y[left_idxs]), self._train_error(y[right_idxs])
+            error_l, error_r = self._class_error(y[left_idxs]), self._class_error(y[right_idxs])
             child_error = (n_l / n) * error_l + (n_r / n) * error_r
 
             information_gain = parent_error - child_error
@@ -140,7 +140,7 @@ class DecisionTree:
 
         return left_idxs, right_idxs
 
-    def _train_error(self, y):
+    def _class_error(self, y):
         counter = Counter(y.flatten())  # Convert to list
         most_common_label, count = counter.most_common(1)[0]
         return 1 - (count / len(y))
