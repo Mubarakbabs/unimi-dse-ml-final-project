@@ -146,14 +146,26 @@ class DecisionTree:
         return 1 - (count / len(y))
 
     def _entropy(self, y):
-        counter = Counter(y.flatten())  # Convert to list
-        ps = np.array([count / len(y) for count in counter.values()])
-        return -np.sum([p * np.log2(p) for p in ps if p > 0])
+        counts = np.bincount(y.flatten())
+        total_count = len(y)
+        probabilities = counts / total_count
+        
+        # Filter out zero probabilities to avoid log2(0)
+        probabilities = probabilities[probabilities > 0]
+        
+        entropy = -np.sum(probabilities * np.log2(probabilities) + (1 - probabilities) * np.log2(1 - probabilities)) / 2
+        return entropy
 
     def _gini(self, y):
-        counter = Counter(y.tolist())  # Convert to list
-        ps = np.array([count / len(y) for count in counter.values()])
-        return 1 - np.sum(ps ** 2)
+        counts = np.bincount(y.flatten())
+        total_count = len(y)
+        probabilities = counts / total_count
+        
+        # Filter out zero probabilities to avoid unnecessary calculations
+        probabilities = probabilities[probabilities > 0]
+        
+        gini = 2 * np.sum(probabilities * (1 - probabilities))
+        return gini
 
     def _most_common_label(self, y):
         counter = Counter(y)

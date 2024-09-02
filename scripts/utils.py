@@ -1,7 +1,7 @@
 #adding other utility functions that aren't necessarily tied to the decision tree
 import numpy as np
 import pandas as pd
-from scripts.final.DecisionTree import DecisionTree
+from scripts.DecisionTree import DecisionTree
 from joblib import Parallel, delayed
 
 def train_test_split(X,y,test_size=0.2, random_state=None):
@@ -81,24 +81,45 @@ def zero_one_loss(y_train, y_pred):
 
     #hyperparameter tuning to maximize the threshold on at least one of them
 
-def evaluate_model(X_train, y_train, X_validate, y_validate, tune_on, split_using, i):
+def evaluate_model(X_train, y_train, X_validate, y_validate, tune_on, split_using, i, cv_index):
     params = {tune_on: i, 'split_using': split_using}
     tree = DecisionTree(**params)
     tree.fit(X_train, y_train)
     y_pred = tree.predict(X_validate)
     validation_error = zero_one_loss(y_validate, y_pred)
-    print(f"tree depth: {tree.max_depth}, validation error: {validation_error}")
+    print(f"Tree depth: {tree.max_depth}, Shuffle index: {cv_index}, Validation error: {validation_error}")
     return validation_error, i
 
-def tune(X, y, tune_on, split_using, start, stop, n_jobs=-1):
-    X_train, X_validate, y_train, y_validate = train_test_split(X, y, test_size=0.2)
+def tune(X, y, tune_on, split_using, start, stop, n_shuffles=5, n_jobs=-1):
+    results_per_depth = {i: [] for i in range(start, stop)}
     
-    results = Parallel(n_jobs=n_jobs)(
-        delayed(evaluate_model)(X_train, y_train, X_validate, y_validate, tune_on, split_using, i)
-        for i in range(start, stop)
-    )
+    for cv_index in range(n_shuffles):
+        # Shuffle the dataset
+        permuted_indices = np.random.permutation(X.shape[0])
+        X_shuffled = X[permuted_indices]
+        y_shuffled = y[permuted_indices]
+        
+        # Split the shuffled data into training and validation sets
+        X_train, X_validate, y_train, y_validate = train_test_split(X_shuffled, y_shuffled, test_size=0.2)
+        
+        # Evaluate the model for each depth
+        results = Parallel(n_jobs=n_jobs)(
+            delayed(evaluate_model)(X_train, y_train, X_validate, y_validate, tune_on, split_using, i, cv_index)
+            for i in range(start, stop)
+        )
+        
+        # Store the results for this shuffle
+        for error, depth in results:
+            results_per_depth[depth].append(error)
+        
     
-    best_error, best_depth = min(results, key=lambda x: x[0])
+    # Compute mean validation error for each depth
+    mean_errors = {depth: np.mean(errors) for depth, errors in results_per_depth.items()}
     
-    print(f"best depth: {best_depth} split criterion: {split_using} validation error: {round(best_error * 100, 2)} %")
-    return [(f"tree_depth: {i}", f"validation error:{error}") for error, i in results]
+    best_depth = min(mean_errors, key=mean_errors.get)
+    best_error = mean_errors[best_depth]
+    
+    print(f"Best depth: {best_depth}, Split criterion: {split_using}, Mean validation error: {round(best_error * 100, 2)} %")
+    
+    # Format results for return
+    return [(f"tree_depth: {depth}", f"mean_validation_error: {error}") for depth, error in mean_errors.items()]
