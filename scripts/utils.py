@@ -118,8 +118,9 @@ def tune(X, y, tune_on, split_using, start, stop, n_shuffles=5, n_jobs=-1):
     
     best_depth = min(mean_errors, key=mean_errors.get)
     best_error = mean_errors[best_depth]
+    best_tree = DecisionTree(max_depth=best_depth, split_using=split_using)
     
     print(f"Best depth: {best_depth}, Split criterion: {split_using}, Mean validation error: {round(best_error * 100, 2)} %")
     
     # Format results for return
-    return [(f"tree_depth: {depth}", f"mean_validation_error: {error}") for depth, error in mean_errors.items()]
+    return best_tree, [(f"tree_depth: {depth}", f"mean_validation_error: {error}") for depth, error in mean_errors.items()]
