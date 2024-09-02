@@ -149,8 +149,6 @@ class DecisionTree:
         counts = np.bincount(y.flatten())
         total_count = len(y)
         probabilities = counts / total_count
-        
-        # Filter out zero probabilities to avoid log2(0)
         probabilities = probabilities[probabilities > 0]
         
         entropy = -np.sum(probabilities * np.log2(probabilities) + (1 - probabilities) * np.log2(1 - probabilities)) / 2
@@ -160,8 +158,6 @@ class DecisionTree:
         counts = np.bincount(y.flatten())
         total_count = len(y)
         probabilities = counts / total_count
-        
-        # Filter out zero probabilities to avoid unnecessary calculations
         probabilities = probabilities[probabilities > 0]
         
         gini = 2 * np.sum(probabilities * (1 - probabilities))
