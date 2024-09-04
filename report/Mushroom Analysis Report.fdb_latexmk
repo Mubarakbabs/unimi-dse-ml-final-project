@@ -1,32 +1,18 @@
 # Fdb version 4
-<<<<<<< HEAD
-["bibtex Mushroom Analysis Report"] 1725456423.21165 "Mushroom Analysis Report.aux" "Mushroom Analysis Report.bbl" "Mushroom Analysis Report" 1725456492.41165 0
-  "Mushroom Analysis Report.aux" 1725456425 6413 92c09be016ed731f5212c2c72f2f94cd "pdflatex"
-=======
-["bibtex Mushroom Analysis Report"] 1725456822.18721 "Mushroom Analysis Report.aux" "Mushroom Analysis Report.bbl" "Mushroom Analysis Report" 1725456827.51901 0
-  "./references.bib" 1725456813 1023 3fde66494ad98140b3a20a00519a9e07 ""
-  "Mushroom Analysis Report.aux" 1725456825 6413 92c09be016ed731f5212c2c72f2f94cd "pdflatex"
->>>>>>> origin/clean-local-branch
+["bibtex Mushroom Analysis Report"] 1725457313.07828 "Mushroom Analysis Report.aux" "Mushroom Analysis Report.bbl" "Mushroom Analysis Report" 1725457321.41644 0
+  "./references.bib" 1725457168 1023 3fde66494ad98140b3a20a00519a9e07 ""
+  "Mushroom Analysis Report.aux" 1725457318 6413 92c09be016ed731f5212c2c72f2f94cd "pdflatex"
   "c:/texlive/2024/texmf-dist/bibtex/bst/base/plain.bst" 1724508281 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
   (generated)
   "Mushroom Analysis Report.bbl"
   "Mushroom Analysis Report.blg"
   (rewritten before read)
-<<<<<<< HEAD
-["pdflatex"] 1725456489.77559 "c:/Users/Mubarak Babslawal/OneDrive - Università degli Studi di Milano/UniMi/1-2/Machine Learning Statistics/unimi-dse-ml-final-project/report/Mushroom Analysis Report.tex" "Mushroom Analysis Report.pdf" "Mushroom Analysis Report" 1725456492.4128 0
-  "Mushroom Analysis Report.aux" 1725456491 6313 32e8e2feaaba8f70bcbb4a61c90ec85b "pdflatex"
-  "Mushroom Analysis Report.bbl" 0 -1 0 "bibtex Mushroom Analysis Report"
-  "Mushroom Analysis Report.out" 1725456491 3345 3a5d47efebd448e714ecb6d866d28984 "pdflatex"
-  "Mushroom Analysis Report.tex" 1725456485 31479 3798e6a94c5f22d1acc264e87b100e24 ""
-  "c:/Users/Mubarak Babslawal/OneDrive - Università degli Studi di Milano/UniMi/1-2/Machine Learning Statistics/unimi-dse-ml-final-project/report/Mushroom Analysis Report.tex" 1725456485 31479 3798e6a94c5f22d1acc264e87b100e24 ""
-=======
-["pdflatex"] 1725456823.10616 "c:/Users/Mubarak Babslawal/OneDrive - Università degli Studi di Milano/UniMi/1-2/Machine Learning Statistics/unimi-dse-ml-final-project/report/Mushroom Analysis Report.tex" "Mushroom Analysis Report.pdf" "Mushroom Analysis Report" 1725456827.52013 0
-  "Mushroom Analysis Report.aux" 1725456825 6413 92c09be016ed731f5212c2c72f2f94cd "pdflatex"
-  "Mushroom Analysis Report.bbl" 1725456823 712 bc93860810f42bf19155e446722607be "bibtex Mushroom Analysis Report"
-  "Mushroom Analysis Report.out" 1725456825 3345 3a5d47efebd448e714ecb6d866d28984 "pdflatex"
-  "Mushroom Analysis Report.tex" 1725456813 31542 ec26779371e51a76d272faa92601953c ""
-  "c:/Users/Mubarak Babslawal/OneDrive - Università degli Studi di Milano/UniMi/1-2/Machine Learning Statistics/unimi-dse-ml-final-project/report/Mushroom Analysis Report.tex" 1725456813 31542 ec26779371e51a76d272faa92601953c ""
->>>>>>> origin/clean-local-branch
+["pdflatex"] 1725457315.21068 "c:/Users/Mubarak Babslawal/OneDrive - Università degli Studi di Milano/UniMi/1-2/Machine Learning Statistics/unimi-dse-ml-final-project/report/Mushroom Analysis Report.tex" "Mushroom Analysis Report.pdf" "Mushroom Analysis Report" 1725457321.41748 0
+  "Mushroom Analysis Report.aux" 1725457318 6413 92c09be016ed731f5212c2c72f2f94cd "pdflatex"
+  "Mushroom Analysis Report.bbl" 1725457315 712 bc93860810f42bf19155e446722607be "bibtex Mushroom Analysis Report"
+  "Mushroom Analysis Report.out" 1725457318 3345 3a5d47efebd448e714ecb6d866d28984 "pdflatex"
+  "Mushroom Analysis Report.tex" 1725457168 31542 ec26779371e51a76d272faa92601953c ""
+  "c:/Users/Mubarak Babslawal/OneDrive - Università degli Studi di Milano/UniMi/1-2/Machine Learning Statistics/unimi-dse-ml-final-project/report/Mushroom Analysis Report.tex" 1725457168 31542 ec26779371e51a76d272faa92601953c ""
   "c:/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1724508776 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1724510089 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1724509529 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
