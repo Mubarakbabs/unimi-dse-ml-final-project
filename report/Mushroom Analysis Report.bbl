@@ -1,0 +1,14 @@
+\begin{thebibliography}{1}
+
+\bibitem{coursematerial}
+Nicol`o Cesa-Bianchi.
+\newblock Tree predictors.
+\newblock Machine Learning — Statistical Methods for Machine Learning - University of Milan, March 2024.
+\newblock Unpublished course material.
+
+\bibitem{modeimputationarticle}
+Shaheen~MZ. Memon, Robert Wamala, and Ignace~H. Kabano.
+\newblock A comparison of imputation methods for categorical data.
+\newblock {\em Informatics in Medicine Unlocked}, 42:101382, 2023.
+
+\end{thebibliography}
