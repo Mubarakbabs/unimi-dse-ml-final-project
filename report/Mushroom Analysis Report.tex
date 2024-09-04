@@ -104,7 +104,7 @@ This report discusses the implementation of a decision tree from scratch in pyth
 Particular attention is paid to meeting the requirements of the assignment as detailed on the course website.
 
 \section{Discussion of the Scripts}
-The scripting of the Decision Tree class and its associated method are included in the \texttt{DecisionTree.py} file. On the other hand, the file utils.py contains other general machine learning functions to handle the data preprocessing and for assessing the models' performances.
+The scripting of the Decision Tree class and its associated method are included in the \texttt{DecisionTree.py} file. This file is adapted from the solution by AssemblyAI \cite{assemblyai}. On the other hand, the file utils.py contains other general machine learning functions to handle the data preprocessing and for assessing the models' performances.
 
 \subsection{Node Class}
 The \texttt{Node} class is a simple structure used to represent a node in the decision tree. Each node can either be an internal node, which holds a decision (split) based on a feature and threshold, or a leaf node, which holds a final predicted value. The class contains a single function that checks if the node is a leaf node
@@ -559,7 +559,7 @@ Generally, the models performed very similarly on the test data compared to the 
 
 Hyperparameter tuning was performed to optimize model performance further. For the purpose of this analysis, the \texttt{tune} function was used to tune the model on the maximum depth parameter, using gini as the splitting criterion because it had the best performance on the single tree. The tuning involved a 5-fold cross validation process on a single parameter: maximum depth. The tree with the best performance is then retrained based on the full training dataset.
 
-\begin{lstlisting}[language=Python, caption=Hyperparameter Tuning, label=code:hyperparameter_tuning]
+\begin{lstlisting}[language=Python, caption=Hyperparameter Tuning, label=code:retrain_tree]
 tuned_tree = tune(X_train, y_train, tune_on='max_depth',split_using='gini', start=19, stop=31)
 \end{lstlisting}
 
