@@ -6,6 +6,11 @@ Nicol`o Cesa-Bianchi.
 \newblock Machine Learning — Statistical Methods for Machine Learning - University of Milan, March 2024.
 \newblock Unpublished course material.
 
+\bibitem{assemblyai}
+Assembly~AI Github.
+\newblock Machine learning from scratch.
+\newblock https://github.com/AssemblyAI-Community/Machine-Learning-From-Scratch/blob/main/04%20Decision%20Trees/DecisionTree.py, 2022.
+
 \bibitem{modeimputationarticle}
 Shaheen~MZ. Memon, Robert Wamala, and Ignace~H. Kabano.
 \newblock A comparison of imputation methods for categorical data.
